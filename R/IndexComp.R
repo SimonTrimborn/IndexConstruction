@@ -197,6 +197,42 @@ indexComp = function(market, price, vol = NULL, weighting = "market", weighting.
         ### end if which controls fixed_value = NULL
         } else {
             index_members = fixed.value
+            
+            if (weighting == "equal") {
+            ### days to alter the index members for choice of optimal settings
+            current_lines         = days.line[seq((1 + derivation.period.ic * 
+                                                     (per - 1)), (derivation.period.ic * per + (derivation.period + 1)), 
+                                                  derivation.period)] + 1
+            begin_line            = current_lines[2]
+            ### total market index
+            index_t_v_all         = index.comp(market = market, price = price, vol = vol, weighting = weighting.all, index.const = "all", base.value = base.value,
+                                               index.periods = index_periods, order.derive = TRUE, current.lines.func = current_lines, 
+                                               begin.line.func = begin_line, comp1 = FALSE, comp = TRUE, per = per, numb.aic = numb_aic, 
+                                               crix = crix, crix.all = crix_all, crix.all.comp = crix_all_comp)
+            max_coin_numb[per] = max(sapply(index_t_v_all[[2]], length))
+            
+            ### for equal weighting with unknown market cap, determine most contributing 
+            order.candidates = NULL
+            
+              r.square.loop = c()
+              candidates.loop = unique(unlist(index_t_v_all[[2]]))
+              for (i in candidates.loop) {
+                r.square.loop[i] = summary(lm( diff(log(index_t_v_all[[1]])) ~ diff(log(price[names(diff(log(index_t_v_all[[1]]))),i])) - 1 , na.action = na_locf_both))$r.squared
+              }
+              order.candidates = names(which.max(r.square.loop))
+              
+              while (length(order.candidates) < length(unique(unlist(index_t_v_all[[2]])))) {
+                r.square.loop = c()
+                candidates.loop = unique(unlist(index_t_v_all[[2]]))
+                candidates.loop = candidates.loop[!is.element(candidates.loop, order.candidates)]
+                for (i in candidates.loop) {
+                  r.square.loop = c(r.square.loop, summary(lm( diff(log(index_t_v_all[[1]])) ~ diff(log(
+                    price[names(diff(log(index_t_v_all[[1]]))),c(order.candidates,i)])) - 1  , na.action = na_locf_both))$r.squared)
+                }
+                order.candidates = c(order.candidates, candidates.loop[which.max(r.square.loop)])
+              }
+            }
+            ###
         }
             
         ### days to alter the index members for application of optimal settings
