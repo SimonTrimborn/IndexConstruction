@@ -1,0 +1,20 @@
+## regular functions:
+
+export("indexComp", "switchDates", "indexUpdate", "relativeWeights", "indexMemberSelection", "indexMembersUpdate"
+)
+
+S3method(print, IndexConstruction)
+S3method(plot, IndexConstruction)
+S3method(weights, IndexConstruction)
+
+# imports:
+
+import(lubridate)
+import(xts)
+import(fGarch)
+import(KernSmooth)
+
+importFrom(stats, lm, var, weights)
+importFrom(utils, tail, menu)
+importFrom(RcppBDT, getNthDayOfWeek)
+importFrom(zoo, index, na.locf)
