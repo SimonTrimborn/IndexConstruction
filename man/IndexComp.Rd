@@ -69,7 +69,7 @@ For more details, please see the methodology section of the paper Trimborn and H
 \value{
   An object of the \code{class} IndexConstruction with the components
   \item{results}{A list containing the results of the model fitting}
-  \itemize{
+  \describe{
     \item{\code{index} }{The optimal index}
     \item{\code{totalIndex} }{The index of all constituents}
     \item{\code{totalIndexRebased} }{The index of all constituents rebased at the index each time after altering the number of index constituents which is useful for comparisons with the market}
@@ -78,7 +78,7 @@ For more details, please see the methodology section of the paper Trimborn and H
     \item{\code{weightsRelative} }{A list containing the relative weights assigned to the selected index constituents in each period}
   }
   \item{inputs}{A list containing the inputs for model fitting}
-  \itemize{
+  \describe{
   \item{\code{marketCap} }{The provided dataset of the market capitalization of each asset for index construction}
   \item{\code{price} }{The provided dataset of the price series of each asset for index construction}
   \item{\code{tradingVolume} }{The provided dataset of the trading volume of each asset for index construction}
@@ -96,7 +96,7 @@ For more details, please see the methodology section of the paper Trimborn and H
 }
 
 \references{
-Trimborn, S. and Haerdle, W.K. (2018). CRIX an Index for cryptocurrencies, \emph{Journal of Empirical Finance} 49, pp. 107-122. \url{https://doi.org/10.1016/j.jempfin.2018.08.004}
+Trimborn, S. and Haerdle, W.K. (2018). CRIX an Index for cryptocurrencies, \emph{Journal of Empirical Finance} 49, pp. 107-122. \doi{10.1016/j.jempfin.2018.08.004}
 }
 \examples{
 data(CryptoData)
