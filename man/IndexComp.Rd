@@ -62,6 +62,8 @@ The days of the month to perform the recalculation on. Can be calculated from sw
 For equal weighting, the order is not decided by largest market capitalization or largest trading volume. Instead, 
 the order in which assets are added to the computation is by largest contribution to the R-squared on the 
 last periods data. For a large number of assets, this computation can take a while during the periodic recomputation. 
+In case two or more assets have similar R-square, the first one in the dataset with respective R-square contribution 
+is added. 
 
 For more details, please see the methodology section of the paper Trimborn and Haerdle (2018).
 }

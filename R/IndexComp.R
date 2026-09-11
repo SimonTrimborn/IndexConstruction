@@ -82,7 +82,7 @@ indexComp = function(market, price, vol = NULL, weighting = "market", weighting.
           for (i in candidates.loop) {
             r.square.loop[i] = summary(lm( diff(log(index_t_v_all[[1]])) ~ diff(log(price[names(diff(log(index_t_v_all[[1]]))),i])) - 1 , na.action = na_locf_both))$r.squared
           }
-          order.candidates = names(which.max(r.square.loop))
+          order.candidates = names(which.max(floor(r.square.loop * 1e8 + 0.5)))
           
           while (length(order.candidates) < length(unique(unlist(index_t_v_all[[2]])))) {
             r.square.loop = c()
@@ -92,7 +92,7 @@ indexComp = function(market, price, vol = NULL, weighting = "market", weighting.
               r.square.loop = c(r.square.loop, summary(lm( diff(log(index_t_v_all[[1]])) ~ diff(log(
                 price[names(diff(log(index_t_v_all[[1]]))),c(order.candidates,i)])) - 1  , na.action = na_locf_both))$r.squared)
             }
-            order.candidates = c(order.candidates, candidates.loop[which.max(r.square.loop)])
+            order.candidates = c(order.candidates, candidates.loop[which.max(floor(r.square.loop * 1e8 + 0.5))])
           }
         }
         ###
@@ -219,7 +219,7 @@ indexComp = function(market, price, vol = NULL, weighting = "market", weighting.
               for (i in candidates.loop) {
                 r.square.loop[i] = summary(lm( diff(log(index_t_v_all[[1]])) ~ diff(log(price[names(diff(log(index_t_v_all[[1]]))),i])) - 1 , na.action = na_locf_both))$r.squared
               }
-              order.candidates = names(which.max(r.square.loop))
+              order.candidates = names(which.max(floor(r.square.loop * 1e8 + 0.5)))
               
               while (length(order.candidates) < length(unique(unlist(index_t_v_all[[2]])))) {
                 r.square.loop = c()
@@ -229,7 +229,7 @@ indexComp = function(market, price, vol = NULL, weighting = "market", weighting.
                   r.square.loop = c(r.square.loop, summary(lm( diff(log(index_t_v_all[[1]])) ~ diff(log(
                     price[names(diff(log(index_t_v_all[[1]]))),c(order.candidates,i)])) - 1  , na.action = na_locf_both))$r.squared)
                 }
-                order.candidates = c(order.candidates, candidates.loop[which.max(r.square.loop)])
+                order.candidates = c(order.candidates, candidates.loop[which.max(floor(r.square.loop * 1e8 + 0.5))])
               }
             }
             ###
